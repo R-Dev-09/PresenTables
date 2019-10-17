@@ -1,0 +1,228 @@
+@import '../shared/css-loading/loading';
+@import '../shared/css-loading/loading-button';
+
+.panel-description {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .panel-first, .panel-second {
+        width: 40%;
+    }
+
+    .panel-first {
+        .new-pres {
+            color: red;
+            position: relative;
+            left: 2%;
+            font-weight: 700;
+        }
+    }
+
+    .spinner {
+        align-self: center;
+        margin-right: 1%;
+    }
+    
+    .panel-delete-tip {
+        background: #b71c1c;
+    }
+}
+
+.icon-button {
+    transform: scale3d(0, 0, 0);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.panel:hover, .panel-active {
+    .icon-button {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.present-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .table-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+
+        .caption {
+            width: 75%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1%;
+
+            h3 {
+
+                span {
+                    font-weight: 400;
+                }
+            }
+        }
+        
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        table {
+            width: 75%;
+            margin-bottom: 2rem;
+            border-left: none;
+            border-top: none;
+
+            .th-end {
+                background: #3949ab;
+                color: whitesmoke;
+                font-weight: 500;
+            }
+        
+            .th-mid {
+                background: #ffe57f;
+            }
+        
+            .th-start {
+                border: none;
+            }
+        
+            .th-end, .meeting {
+                padding: 0.5rem;
+            }
+        
+            .input-cell {
+                height: 2.5rem;
+                text-align: center;
+            }
+
+            .meeting {
+                background: #3949ab;
+                color: whitesmoke;
+                font-weight: 500;
+                width: 20%;
+            }
+
+            .totaal, .gemiddelde, .th-mid {
+                text-align: center;
+                width: 10%;
+            }
+        }
+    }
+
+    form {
+        margin-top: 0;
+
+        .caption {
+            // width: 100%;
+            display: flex;
+            justify-content: space-between;
+            
+            mat-form-field {
+                span {
+                    font-weight: 700;
+                    margin-right: 0.5rem;
+                }
+            }
+
+            .month-picker {
+                width: 16%;
+            }
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table {
+            margin-bottom: 1rem;
+            border-left: none;
+            border-top: none;
+
+            .th-end {
+                background: #3949ab;
+                color: whitesmoke;
+                font-weight: 500;
+            }
+
+            .th-mid {
+                background: #ffe57f;
+            }
+
+            .th-start {
+                border: none;
+            }
+
+            th, td {
+                padding: 0.5rem;
+            }
+
+            input {
+                border: none;
+                outline: none;
+                text-align: center;
+                width: 100px;
+            }
+
+            .meeting {
+                background: #3949ab;
+                color: whitesmoke;
+                font-weight: 500;
+            }
+
+            .totaal, .gemiddelde {
+                text-align: center;
+                width: 100px;
+            }
+
+            .input-cell {
+                transition: all 0.2s linear;
+                cursor: pointer;
+
+                input {
+                    height: 2rem;
+                    background: unset;
+                    cursor: pointer;
+                }
+                
+                &:focus-within, &:hover {
+                    background: rgb(221, 221, 221);
+                }
+            }
+
+            .invalid-cell {
+                background-color: rgba(255, 0, 0, 0.5);
+
+                &:hover, &:focus-within {
+                    background-color: rgba(255, 0, 0, 0.5);
+                }
+            }
+        }
+
+        .button-wrapper {
+            width: 75%;
+            display: flex;
+            justify-content: space-between;
+
+            .done {
+                background: #33691e;
+                color: whitesmoke;
+            }
+
+            .inactive {
+                background: grey;
+                color: black;
+                opacity: 0.5;
+            }
+        }
+    }
+}

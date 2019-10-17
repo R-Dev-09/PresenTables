@@ -1,0 +1,34 @@
+{
+    "name": "present-app",
+    "version": "0.0.0",
+    "description": "Serving presentables",
+    "main": "main.js",
+    "private": true,
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon server.js",
+      "electron": "electron ."
+    },
+    "keywords": [
+      "Node",
+      "Presentable",
+      "Api"
+    ],
+    "author": "Ronny van Dael",
+    "license": "ISC",
+    "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "body-parser": "^1.19.0",
+      "crypto": "^1.0.1",
+      "debug": "^4.1.1",
+      "express": "^4.17.1",
+      "json-cipher-value": "^1.1.3",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.7.3",
+      "mongoose-unique-validator": "^2.0.3",
+      "node-json-db": "^1.0.1"
+    },
+    "devDependencies": {
+      "nodemon": "^1.19.3"
+    }
+}

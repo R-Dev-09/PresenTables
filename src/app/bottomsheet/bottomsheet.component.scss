@@ -1,0 +1,33 @@
+@import '../shared/css-loading/loading.css';
+@import '../shared/css-loading/loading-button.css';
+
+.div-logout, .div-delete {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h2 {
+        margin: 5%;
+        text-align: center;
+    }
+
+    .button-wrapper {
+        width: 50%;
+        margin-bottom: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+            font-size: 1rem;
+        }
+
+        .btn-yes {
+            background: green;
+            color: whitesmoke;
+        }
+    }
+}

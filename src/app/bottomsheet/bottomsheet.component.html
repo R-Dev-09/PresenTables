@@ -1,0 +1,16 @@
+<div *ngIf="type === 'logout'; else other" class="div-logout">
+    <h2>Are you sure you want to logout?</h2>
+    <div class="button-wrapper">
+        <button mat-button mat-flat-button color="warn" (click)="closeSheet()">No...</button>
+        <button mat-button mat-flat-button class="btn-yes" (click)="onLogout()">Yes!</button> 
+    </div>
+</div>
+<ng-template #other>
+    <div class="div-delete">
+        <h2>Are you sure you want to delete this presentable?</h2>
+        <div class="button-wrapper">
+            <button mat-button mat-flat-button color="warn" (click)="closeSheet()">No...</button>
+            <button mat-button mat-flat-button class="btn-yes ld-ext-right" (click)="onDelete()"><span [style.margin-right]="isLoadingD ? '10%' : 'unset'">Yes!</span><div [class.ld]="isLoadingD" [class.ld-ring]="isLoadingD" [class.ld-spin]="isLoadingD"></div></button>
+        </div>
+    </div>
+</ng-template>

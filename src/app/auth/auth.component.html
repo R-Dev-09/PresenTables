@@ -1,0 +1,25 @@
+<div class="container">
+    <form [formGroup]="authForm">
+        <mat-form-field appearance="standard">
+            <mat-label>Email:</mat-label>
+            <input matInput type="email" formControlName="email" autocomplete="off" required>
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            <mat-error *ngIf="!authForm.get('email').valid">{{ getErrorMessage('email') }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard">
+            <mat-label>Password:</mat-label>
+            <input matInput [type]="showPW ? 'text' : 'password'" formControlName="password" autocomplete="off" minlength="6" required>
+            <button mat-button mat-icon-button (click)="showPW = !showPW" matSuffix class="pw-button">
+                <mat-icon *ngIf="showPW; else hide">visibility_off</mat-icon>
+                <ng-template #hide>
+                    <mat-icon>visibility</mat-icon>
+                </ng-template>
+            </button>
+            <mat-error *ngIf="!authForm.get('password').valid">{{ getErrorMessage('password') }}</mat-error>
+        </mat-form-field>
+        <div class="button-wrapper">
+            <button [disabled]="!authForm.valid" mat-button mat-raised-button color="accent" (click)="onAuth('signup')" class="ld-ext-right"><span [style.margin-right]="isLoadingS ? '10%' : 'unset'">Signup</span><div [class.ld]="isLoadingS" [class.ld-ring]="isLoadingS" [class.ld-spin]="isLoadingS"></div></button>
+            <button [disabled]="!authForm.valid" mat-button mat-raised-button color="primary" (click)="onAuth('login')" class="ld-ext-right"><span [style.margin-right]="isLoadingL ? '10%' : 'unset'">Login</span><div [class.ld]="isLoadingL" [class.ld-ring]="isLoadingL" [class.ld-spin]="isLoadingL"></div></button>
+        </div>
+    </form>
+</div>

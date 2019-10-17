@@ -1,0 +1,133 @@
+<mat-expansion-panel #expanel [expanded]="step === presId" (opened)="setStep(presId)" (afterExpand)="setIsNew(presId)" hideToggle class="panel" class.panel-active="expanded">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <button mat-button mat-icon-button class="icon-button" (click)="goEdit()" matTooltip="Edit presentable" matTooltipPosition="right" (click)="expanel.close()" [disabled]="editMode"><mat-icon>undo</mat-icon></button>
+    </mat-panel-title>
+    <mat-panel-description class="panel-description">
+      <div class="panel-first">
+        <span>{{ p.mnd }}</span>
+        <span class="new-pres" *ngIf="isNew">* NEW</span>
+      </div>
+      <div class="panel-second">
+        <span *ngIf="!p.edited; else edit"><i>Created: {{ p.created }}</i></span>
+        <ng-template #edit>
+          <span *ngIf="p.edited"><i>Edited: {{ p.edited }}</i></span>
+        </ng-template>
+      </div>
+      <div *ngIf="!isLoadingD; else loading">
+        <button mat-button mat-icon-button color="warn" class="icon-button" matTooltipClass="panel-delete-tip" (click)="deletePresentable(presId)" (click)="expanel.open()" matTooltip="Delete presentable" matTooltipPosition="left" [disabled]="editMode"><mat-icon>delete_outline</mat-icon></button>
+      </div>
+      <ng-template #loading>
+        <div class="spinner">
+          <div class="ld ld-ring ld-spin" color="red"></div>
+        </div>
+      </ng-template>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <div class="present-wrapper" *ngIf="!editMode">
+      <div class="present-wrapper">
+        <div class="table-wrapper">
+          <div class="caption">
+            <h3>Gemeente: <span>{{ p.gmt }}</span></h3>
+            <h3>Maand: <span>{{ p.mnd }}</span></h3>
+          </div>
+          <table>
+            <thead>
+              <th class="th-start"></th>
+              <th class="th-mid">1e week</th>
+              <th class="th-mid">2e week</th>
+              <th class="th-mid">3e week</th>
+              <th class="th-mid">4e week</th>
+              <th class="th-mid">5e week</th>
+              <th class="th-end">Totaal</th>
+              <th class="th-end">Gemiddelde</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="meeting">LED-vergadering</td>
+                <td class="input-cell">{{ p.led.w1 }}</td>
+                <td class="input-cell">{{ p.led.w2 }}</td>
+                <td class="input-cell">{{ p.led.w3 }}</td>
+                <td class="input-cell">{{ p.led.w4 }}</td>
+                <td class="input-cell">{{ p.led.w5 }}</td>
+                <td class="totaal">{{ p.totled }}</td>
+                <td class="gemiddelde">{{ p.gemled }}</td>
+              </tr>
+              <tr>
+                <td class="meeting">Openbare vergadering /<br>Wachttorenstudie</td>
+                <td class="input-cell">{{ p.opw.w1 }}</td>
+                <td class="input-cell">{{ p.opw.w2 }}</td>
+                <td class="input-cell">{{ p.opw.w3 }}</td>
+                <td class="input-cell">{{ p.opw.w4 }}</td>
+                <td class="input-cell">{{ p.opw.w5 }}</td>
+                <td class="totaal">{{ p.totopw }}</td>
+                <td class="gemiddelde">{{ p.gemopw }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="present-wrapper" *ngIf="editMode">
+      <div class="present-wrapper">
+        <form class="table-wrapper" [formGroup]="editForm" (ngSubmit)=onEdit(presId)>
+          <div class="caption">
+            <mat-form-field color="primary" hintLabel="Pattern: [A-Z][a-z]+-[A-Z][a-z]+">
+              <span matPrefix>Gemeente:</span>
+              <input matInput type="text" formControlName="gemeente" autocomplete="off" required pattern="[A-Z][a-z]+-[A-Z][a-z]+">
+              <mat-error *ngIf="!editForm.get('gemeente').valid">{{ getError('gemeente') }}</mat-error>
+            </mat-form-field>
+            <mat-form-field color="primary" class="month-picker">
+                <span matPrefix>Maand:</span>
+                <mat-select formControlName="maand">
+                    <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+                </mat-select>
+                <span matSuffix>{{ year }}</span>
+                <mat-error *ngIf="!editForm.get('maand').valid">{{ getError('maand') }}</mat-error>
+            </mat-form-field>
+          </div>
+          <table>
+            <thead>
+              <th class="th-start"></th>
+              <th class="th-mid">1e week</th>
+              <th class="th-mid">2e week</th>
+              <th class="th-mid">3e week</th>
+              <th class="th-mid">4e week</th>
+              <th class="th-mid">5e week</th>
+              <th class="th-end">Totaal</th>
+              <th class="th-end">Gemiddelde</th>
+            </thead>
+            <tbody>
+              <tr>
+              <td class="meeting">LED-vergadering</td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week1LED').valid && editForm.get('week1LED').touched"><input formControlName="week1LED" pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week2LED').valid && editForm.get('week2LED').touched"><input placeholder="*" formControlName="week2LED" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week3LED').valid && editForm.get('week3LED').touched"><input placeholder="*" formControlName="week3LED" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week4LED').valid && editForm.get('week4LED').touched"><input placeholder="*" formControlName="week4LED" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week5LED').valid && editForm.get('week5LED').touched"><input formControlName="week5LED" pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="totaal">{{ totaal('LED') }}</td>
+              <td class="gemiddelde">{{ gemiddeld('LED') }}</td>
+              </tr>
+              <tr>
+              <td class="meeting">Openbare vergadering /<br>Wachttorenstudie</td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week1OPW').valid && editForm.get('week1OPW').touched"><input placeholder="*" formControlName="week1OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week2OPW').valid && editForm.get('week2OPW').touched"><input placeholder="*" formControlName="week2OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week3OPW').valid && editForm.get('week3OPW').touched"><input placeholder="*" formControlName="week3OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week4OPW').valid && editForm.get('week4OPW').touched"><input placeholder="*" formControlName="week4OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="input-cell" [class.invalid-cell]="!editForm.get('week5OPW').valid && editForm.get('week5OPW').touched"><input formControlName="week5OPW" pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
+              <td class="totaal">{{ totaal('OPW') }}</td>
+              <td class="gemiddelde">{{ gemiddeld('OPW') }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="button-wrapper">
+            <button type="button" (click)="onCancel()" mat-button mat-flat-button color="warn">Cancel</button>
+            <span>* = required</span>
+            <button type="submit" mat-button mat-flat-button class="done ld-ext-right" [class.inactive]="!editForm.valid"><span [style.margin-right]="isLoadingE ? '10%' : 'unset'">Confirm</span><div [class.ld]="isLoadingE" [class.ld-ring]="isLoadingE" [class.ld-spin]="isLoadingE"></div></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+</mat-expansion-panel>
