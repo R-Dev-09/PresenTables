@@ -27,7 +27,7 @@ export class PresDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      'gemeente': new FormControl('Almelo-Aalderinkshoek', [Validators.pattern("[A-Z][a-z]+-[A-Z][a-z]+"), Validators.required]),
+      'gemeente': new FormControl('', [Validators.pattern("[A-Z][a-z]+-[A-Z][a-z]+"), Validators.required]),
       'maand': new FormControl(null, [Validators.required]),
       'week1LED': new FormControl(null, [Validators.pattern(this.regex)]),
       'week2LED': new FormControl(null, [Validators.pattern(this.regex), Validators.required]),
@@ -88,7 +88,7 @@ export class PresDialogComponent implements OnInit {
 
   onReset() {
     this.form.reset({
-      gemeente: 'Almelo-Aalderinkshoek',
+      gemeente: '',
       maand: this.form.get('maand').value
     });
   }
