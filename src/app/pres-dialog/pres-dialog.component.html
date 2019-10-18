@@ -31,7 +31,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="meeting">LED-vergadering</td>
+                    <td class="meeting">Meeting 1</td>
                     <td class="input-cell" [class.invalid-cell]="!form.get('week1LED').valid && form.get('week1LED').touched"><input formControlName="week1LED" pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
                     <td class="input-cell" [class.invalid-cell]="!form.get('week2LED').valid && form.get('week2LED').touched"><input placeholder="*" formControlName="week2LED" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
                     <td class="input-cell" [class.invalid-cell]="!form.get('week3LED').valid && form.get('week3LED').touched"><input placeholder="*" formControlName="week3LED" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
@@ -41,7 +41,7 @@
                     <td class="gemiddelde">{{ gemiddeld('LED') }}</td>
                 </tr>
                 <tr>
-                    <td class="meeting">Openbare vergadering /<br>Wachttorenstudie</td>
+                    <td class="meeting">Meeting 2</td>
                     <td class="input-cell" [class.invalid-cell]="!form.get('week1OPW').valid && form.get('week1OPW').touched"><input placeholder="*" formControlName="week1OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
                     <td class="input-cell" [class.invalid-cell]="!form.get('week2OPW').valid && form.get('week2OPW').touched"><input placeholder="*" formControlName="week2OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
                     <td class="input-cell" [class.invalid-cell]="!form.get('week3OPW').valid && form.get('week3OPW').touched"><input placeholder="*" formControlName="week3OPW" required pattern="([0-9]{2,3}|-\s?(kring|congres)\s?-|-)"></td>
